@@ -1,1 +1,1 @@
-# atlas-web_front_end
+In this project I will be learning the basics of html and what not.
