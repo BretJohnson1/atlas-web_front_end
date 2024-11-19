@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <title>Task 7</title>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="application/javascript">
+        function createSearchForm() {
+            const searchInput = $('<input type="text" id="searchInput" />');
+            const submitButton = $('<input type="submit" value="Search"></button>');
+            submitButton.click(function() {
+                queryWikipedia(searchInput.val());
+            });
+            var emptyList = $('<ul></ul>');
+            $('body').append(searchInput, submitButton, emptyList);
+        }
+
+        function addNewArticle(id, title, snippet) {
+            const newList = $(`<li><p><span>${id} -<b>${title}</span></p><p>${snippet}</p></li>`);
+            $('ul:first').append(newList);
+        }
+
+        function queryWikipedia(search) {
+            $.ajax({
+            url: `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${search}&format=json`,
+            type: 'GET',
+            dataType: 'jsonp',
+            success: function(data) {
+                data.query.search.forEach(function(article) {
+                addNewArticle(article.pageid, article.title, article.snippet);
+            });
+            }});
+        }
+        $(document).ready(function() {
+            createSearchForm();
+        });
+    </script>
+</body>
+</html>
