@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <title>Task 9</title>
+    <style>
+        #pagination {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        #pagination li {
+            cursor: pointer;
+            margin-left: 10px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #pagination li.active {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+        .loading {
+            opacity: 0.2;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="application/javascript">
+        const ITEMS_PER_PAGE = 10;
+
+        function createSearchForm() {
+            const searchInput = $('<input type="text" id="searchInput" />');
+            const submitButton = $('<input type="submit" value="Search"></button>');
+
+            submitButton.click(function() {
+                const searchTerm = searchInput.val();
+                queryWikipedia(searchTerm, 0);
+            });
+
+            const resultsList = $('<ul></ul>');
+            const paginationList = $('<ul id="pagination"></ul>');
+
+            $('body').append(searchInput, submitButton, resultsList, paginationList);
+        }
+
+        function addNewArticle(id, title, snippet) {
+            const newList = $(`<li><p><span>${id} - <b>${title}</b></span></p><p>${snippet}</p></li>`);
+            $('ul:first').append(newList);
+        }
+
+        function displayLoading(loading) {
+            const resultsList = $('ul:first');
+            if (loading) {
+                resultsList.wrap('<div class="loading"></div>');
+            } else {
+                if (resultsList.parent().hasClass('loading')) {
+                    resultsList.unwrap();
+                }
+            }
+        }
+
+        function queryWikipedia(search, offset = 0) {
+            displayLoading(true);
+            $('ul:first').empty();
+            $('#pagination').empty();
+
+            $.ajax({
+                url: `https://en.wikipedia.org/w/api.php`,
+                type: 'GET',
+                dataType: 'jsonp',
+                data: {
+                    action: 'query',
+                    list: 'search',
+                    srsearch: search,
+                    format: 'json',
+                    sroffset: offset,
+                    srlimit: ITEMS_PER_PAGE
+                },
+                success: function(data) {
+                    const results = data.query.search;
+                    const totalHits = data.query.searchinfo.totalhits;
+
+                    results.forEach(function(article) {
+                        addNewArticle(article.pageid, article.title, article.snippet);
+                    });
+
+                    buildPagination(totalHits, ITEMS_PER_PAGE, offset);
+                },
+                complete: function() {
+                    displayLoading(false);
+                }
+            });
+        }
+
+        function buildPagination(numberOfItems, itemsPerPage, currentOffset) {
+            const totalPages = Math.ceil(numberOfItems / itemsPerPage);
+            const currentPage = currentOffset / itemsPerPage + 1;
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageItem = $('<li></li>').text(i);
+
+                if (i === currentPage) {
+                    pageItem.addClass('active');
+                }
+
+                pageItem.click(function() {
+                    const newOffset = (i - 1) * itemsPerPage;
+                    const searchTerm = $('#searchInput').val();
+                    queryWikipedia(searchTerm, newOffset);
+                });
+
+                $('#pagination').append(pageItem);
+            }
+        }
+
+        $(document).ready(function() {
+            createSearchForm();
+        });
+    </script>
+</body>
+</html>
