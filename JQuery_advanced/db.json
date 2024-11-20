@@ -1,0 +1,64 @@
+{
+    "posts": [
+      {
+        "id": 1,
+        "title": "json-server",
+        "author": "typicode"
+      },
+      {
+        "title": "fd",
+        "author": "fffff",
+        "id": 2
+      },
+      {
+        "title": "fd",
+        "author": "fffff",
+        "id": 3
+      },
+      {
+        "title": "f",
+        "author": "f",
+        "id": 4
+      },
+      {
+        "title": "A bug",
+        "author": "Jiminy H. Cricket",
+        "id": 5
+      },
+      {
+        "title": "Some A hole",
+        "author": "Draco Malfoy",
+        "id": 6
+      },
+      {
+        "title": "Some magical guy",
+        "author": "David Blaine",
+        "id": 7
+      },
+      {
+        "title": "Some smart guy",
+        "author": "Nikolai Tesla",
+        "id": 8
+      },
+      {
+        "title": "Worlds greatest detective",
+        "author": "Scooby Doo",
+        "id": 9
+      },
+      {
+        "title": "Some old guy",
+        "author": "Jimmy Buffet",
+        "id": 10
+      }
+    ],
+    "comments": [
+      {
+        "id": 1,
+        "body": "some comment",
+        "postId": 1
+      }
+    ],
+    "profile": {
+      "name": "typicode"
+    }
+  }
