@@ -17,7 +17,7 @@
         }
 
         function listPosts() {
-            $.get('http://localhost:3000/posts')
+            $.get('http://localhost:3355/posts')
                 .done(function(response) {
                     response.forEach(addPostRow);
                 })
