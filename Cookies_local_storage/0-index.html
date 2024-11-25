@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taks 0</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="./src/index.js"></script>
+</head>
+
+<body>
+  <script>
+    $(document).ready(function () {
+      $("#setCookies").on("click", setCookie);
+      $("#showCookies").on("click", showCookies);
+    });
+
+    function setCookie() {
+      let firstName = $('#firstname').val();
+      let email = $('#email').val();
+
+      if (firstName) {
+        localStorage.setItem('firstname', firstName)
+      }
+
+      if (email) {
+        localStorage.setItem('email', email)
+      }
+    }
+
+    function getCookie(name) {
+      return localStorage.getItem(name)
+    }
+
+    function showCookies() {
+      let email = getCookie("email");
+      let firstName = getCookie("firstname");
+      $('body').append(`<p>Email: ${email} - Firstname: ${firstName}</p>`);
+    }
+  </script>
+
+  <h1>Login to website</h1>
+  <input type="text" id="firstname">
+  <input type="text" id="email">
+  <button id="setCookies"> Log me in</button>
+
+  <h1>Cookies</h1>
+  <button id="showCookies">Show the Cookies</button>
+
+</body>
+
+</html>
