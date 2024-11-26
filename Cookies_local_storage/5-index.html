@@ -1,60 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task 5</title>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="./src/index.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <title>Shopping Cart</title>
 </head>
-
 <body>
   <script>
-    $(document).ready(function () {
-      localStorageTest();
+    // JavaScript code from app.js goes here
+    const availableItems = ["Shampoo", "Soap", "Sponge", "Water"];
 
-    });
-
-    const availableItms = ["Shampoo", "Soap", "Sponge", "Water"]
-
-    function localStorageTest() {
-      let item = 'test';
-
-      try {
-        localStorage.setItem(item, item);
-        localStorage.removeItem(item)
-        createStore();
-        displayCart();
-      } catch (e) {
-        alert('Sorry, your browser does not support Web storage. Try again with a better one');
-      }
+    if (typeof Storage === "undefined") {
+      alert("Sorry, your browser does not support Web storage. Try again with a better one");
+    } else {
+      createStore();
+      displayCart();
     }
 
     function addItemToCart(item) {
-      return localStorage.setItem(item, true)
+      localStorage.setItem(item, true);
     }
 
     function createStore() {
-      $('body').append('<ul></ul>');
-      for (let items = 0; items < availableItms.length; items++) {
-        $('ul').append(`<li>${availableItms[items]}</li>`);
-        $(`ul li`).click(function () {
-          addItemToCart($(this).text());
-        })
-      }
+      const ul = document.createElement('ul');
+      availableItems.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        li.onclick = () => addItemToCart(item);
+        ul.appendChild(li);
+      });
+      document.body.appendChild(ul);
     }
 
     function displayCart() {
-      if (localStorage === "") {
-        return 'undefined'
-      } else {
-        $('body').append(`<p>You previously had ${localStorage.length} items in your cart</p>`)
+      const cartItems = Object.keys(localStorage).filter(key => localStorage.getItem(key) === "true");
+      if (cartItems.length > 0) {
+        const p = document.createElement('p');
+        p.textContent = `You previously had ${cartItems.length} items in your cart.`;
+        document.body.appendChild(p);
       }
     }
-
   </script>
 </body>
-
 </html>
