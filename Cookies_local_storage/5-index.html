@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 5</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="./src/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+</head>
+
+<body>
+  <script>
+    $(document).ready(function () {
+      localStorageTest();
+
+    });
+
+    const availableItms = ["Shampoo", "Soap", "Sponge", "Water"]
+
+    function localStorageTest() {
+      let item = 'test';
+
+      try {
+        localStorage.setItem(item, item);
+        localStorage.removeItem(item)
+        createStore();
+        displayCart();
+      } catch (e) {
+        alert('Sorry, your browser does not support Web storage. Try again with a better one');
+      }
+    }
+
+    function addItemToCart(item) {
+      return localStorage.setItem(item, true)
+    }
+
+    function createStore() {
+      $('body').append('<ul></ul>');
+      for (let items = 0; items < availableItms.length; items++) {
+        $('ul').append(`<li>${availableItms[items]}</li>`);
+        $(`ul li`).click(function () {
+          addItemToCart($(this).text());
+        })
+      }
+    }
+
+    function displayCart() {
+      if (localStorage === "") {
+        return 'undefined'
+      } else {
+        $('body').append(`<p>You previously had ${localStorage.length} items in your cart</p>`)
+      }
+    }
+
+  </script>
+</body>
+
+</html>
