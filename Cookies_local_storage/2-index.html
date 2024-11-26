@@ -4,9 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task 1</title>
+  <title>Task 2</title>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="./src/index.js"></script>
 </head>
 
 <body>
@@ -22,7 +21,7 @@
 
       const expirationDays = 10;
       const expirationDate = new Date();
-      expirationDate.setTime(expirationDate.getTime() + (expirationDays * 24 * 60 * 60 * 1000)); 
+      expirationDate.setTime(expirationDate.getTime() + (expirationDays * 24 * 60 * 60 * 1000)); // 10 days in milliseconds
       const expires = `expires=${expirationDate.toUTCString()}`;
 
       if (firstName) {
@@ -39,16 +38,19 @@
       for (let cookie of cookies) {
         const [key, value] = cookie.split('=');
         if (key === name) {
-          return value;
+          return decodeURIComponent(value); // Decode in case the value is URL-encoded
         }
       }
-      return null;
+      return ''; // Return an empty string if the cookie does not exist
     }
 
     function showCookies() {
-      let email = getCookie("email");
-      let firstName = getCookie("firstname");
-      $('body').append(`<p>Email: ${email ? email : 'Not set'} - Firstname: ${firstName ? firstName : 'Not set'}</p>`);
+      const email = getCookie("email");
+      const firstName = getCookie("firstname");
+      // Clear previous paragraphs if they exist
+      $('body p').remove();
+      // Append the new paragraph with cookie values
+      $('body').append(`<p>Email: ${email || 'Not set'} - Firstname: ${firstName || 'Not set'}</p>`);
     }
   </script>
 
