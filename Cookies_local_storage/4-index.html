@@ -71,7 +71,7 @@
         const body = document.body;
         const welcomeMessage = document.createElement('div');
         welcomeMessage.id = "welcomeMessage";
-        welcomeMessage.innerHTML = `<h1>Welcome ${firstName} <a onclick="deleteCookiesAndShowForm()">logout</a></h1>`;
+        welcomeMessage.innerHTML = `<h1>Welcome: ${firstName} <a onclick="deleteCookiesAndShowForm()">(logout)</a></h1>`;
         body.appendChild(welcomeMessage);
       } else {
         showForm();
