@@ -110,7 +110,7 @@
         // "Clear my cart" option
         const clearCartButton = document.createElement("li");
         clearCartButton.innerHTML = `<button onclick="clearCart()">Clear my cart</button>`;
-        ul.appendChild(clearCartButton);
+        ul.prependChild(clearCartButton);
       }
 
       cartDiv.appendChild(ul);
