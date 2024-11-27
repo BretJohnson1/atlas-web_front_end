@@ -7,3 +7,5 @@ function welcome(firstName, lastName) {
 
     displayFullName(fullName);
 }
+
+welcome("firstname", "lastname");

@@ -2,12 +2,9 @@ function createElement(data) {
 
     // create elements and append text to p
     let paragraph = document.createElement('p');
-    const node = document.createTextNode(data);
-    paragraph.appendChild(node);
+    paragraph.innerHTML = data;
+    document.body.appendChild(paragraph);
 
-    // append p to document
-    const element = document.getElementById('body');
-    element.appendChild(paragraph);
   };
 
   function queryWikipedia(callback) {
@@ -29,3 +26,5 @@ function createElement(data) {
       callback(xhttp.response);
     };
   };
+
+  queryWikipedia(createElement);

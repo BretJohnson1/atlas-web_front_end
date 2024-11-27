@@ -25,3 +25,7 @@ let classRoom = createClassRoom(10);
 for (let student of classRoom) {
     console.log(student());
 }
+
+alert(classRoom[0]());
+alert(classRoom[3]());
+alert(classRoom[9]());
