@@ -19,7 +19,7 @@
         }
 
         function listPosts() {
-            $.get("http://localhost:3355/posts", function(data) {
+            $.get("http://localhost:5500/JQuery_advanced/11-index.html", function(data) {
                 data.forEach(function(post) {
                     addPostRow(post);
                 });
@@ -60,7 +60,7 @@
                 title: $('#title').val(),
             };
 
-            $.post("http://localhost:3355/posts", data, function(response) {
+            $.post("http://localhost:5500/JQuery_advanced/11-index.html", data, function(response) {
                 addPostRow(response);
             }).fail(function() {
                 alert("Error sending the POST query");

@@ -5,6 +5,7 @@
         <title>Task 5</title>
         <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>    </script>
         <script type="application/javascript">
+            $(document).ready(function(){
             function createFamilyTree() {
                 $('body').append("<table>").append("<thead>").append($("<tr>").append($('<th>').text('Firstname')).append($('<th>').text('Lastname')));
                 $('table').append("<tbody>");
@@ -16,12 +17,11 @@
                 $(this).closest('tr').remove();
             });
             createFamilyTree();
-            $(document).ready(function(){
-                addNewMember('Guillaume', 'Salva'),
-                addNewMember('Arielle', 'Snizt'),
+                addNewMember('Guillaume', 'Salva');
+                addNewMember('Arielle', 'Snizt');
                 addNewMember('Fanette', 'Snizt');
-                addNewMember('Gerard', 'Snizt'),
-                addNewMember('Victor', 'Salva')
+                addNewMember('Gerard', 'Snizt');
+                addNewMember('Victor', 'Salva');
             });
         </script>
     </head>
